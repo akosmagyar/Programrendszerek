@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-form-field>
+    <textarea matInput rows="6" [(ngModel)]="enteredValue"></textarea>   <!-- double binding a [value]="newPost" #postInput helyett -->
+  </mat-form-field>
+</mat-card>
+
+
+<hr> <!-- horizontális vonal -->
+
+<button (click)="onAddPost()">Save Post</button>
+<p> {{ newPost }} </p>
