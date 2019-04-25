@@ -1,3 +1,3 @@
 # Programrendszerek fejlesztése bedandó feladat
 
-PRF
+ **Beer house project**
