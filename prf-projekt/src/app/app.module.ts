@@ -6,7 +6,8 @@ import {
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatExpansionModule
    } from '@angular/material'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,9 +32,12 @@ import { PostListComponent } from './posts/post-list/post-list.component'; // au
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

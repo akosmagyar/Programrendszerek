@@ -1,15 +1,47 @@
 <mat-card>
-  <mat-form-field>
-    <textarea matInput rows="6" [(ngModel)]="enteredValue"></textarea>   <!-- double binding a [value]="newPost" #postInput helyett -->
-  </mat-form-field>
-  <button
-  mat-raised-button
-  color="primary"
-  (click)="onAddPost()">Save Post</button>
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+    <mat-form-field>
+        <input
+         matInput
+          type="text"
+          name="title"
+          ngModel
+          required
+          minlength="3"
+          maxlength="60"
+          #title="ngModel">
+          <mat-error *ngIf="title.invalid">Adj meg egy címet.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+       matInput
+        rows="4"
+        name="content"
+        ngModel
+        required
+        minlength="3"
+        #content="ngModel">
+      </textarea>    <!-- \[\(ngModel)]="enteredContent"-->
+      <mat-error *ngIf="content.invalid">Adj meg tartalmat.</mat-error>
+        <!-- double binding a [value]="newPost" #postInput helyett -->
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"> Poszt mentése <!--(click)="onAddPost()"-->
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onDeletePost()">Poszt törlése
+    </button>
+  </form>
 </mat-card>
 
 
 <hr> <!-- horizontális vonal -->
 
 
-<p> {{ newPost }} </p>
+

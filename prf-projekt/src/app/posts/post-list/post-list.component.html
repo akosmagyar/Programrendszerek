@@ -1,3 +1,34 @@
-<p>
-  post-list works!
-</p>
+<mat-accordion multi="true" *ngIf="posts.length > 0">
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ post.title }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ post.content }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Age">
+    </mat-form-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Reszponzív panel
+      </mat-panel-title>
+      <mat-panel-description>
+        Épp {{panelOpenState ? 'le vagyok nyitva' : 'nem vagyok lenyitva'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>Látható vagyok, mert le vagyok nyitva</p>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<p class="infomat-body-1" *ngIf="posts.length == 0"> Nem lett még poszt hozzáadva</p>
