@@ -2,13 +2,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {type: String, unique: true, required: true, lowercase: true},
     password: {type: String, required: true},
-    age: {type: Number}
+    role: String
 }, {collection: 'user'});
 
-/*
+
 userSchema.pre('save', function(next) {
     var user = this;
     if(user.isModified('password')) {
@@ -34,8 +34,18 @@ userSchema.methods.comparePasswords = function(password, next) {
         next(error, isMatch);
     });
 };
-*/
 
-mongoose.model('user', userSchema);
+userSchema.set('toJSON', {
+    transform: function(doc, ret, options) {
+      delete ret.password;
+      return ret;
+    }
+  });
+
+const User = mongoose.model('User', userSchema);
+
+//mongoose.model('user', userSchema); eredeti
+
+export default User;
 
 

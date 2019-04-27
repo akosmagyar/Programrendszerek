@@ -1,33 +1,64 @@
-// innen jon az Express
-
-// mongodb://user:<PASSWORD>@prf-example01-shard-00-00-
-
 const express = require('express');
-var app = express();
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
-const mongo = require('mongodb');
-const Transaction = require('mongoose-transactions');
+const morgan = require('morgan');
+const path = require('path');
 
-
+var app = express();
+// mongodb://user:<PASSWORD>@prf-example01-shard-00-00-
 //const MongoClient = require('mongodb').MongoClient;
-
-const dbUrl = "mongodb+srv://dbUser:dbUserPassword@prf-project-qgfas.mongodb.net/test?retryWrites=true";
-const transaction = new Transaction();
-
 //require('./user.model');
 
+//const dbUrl = "mongodb+srv://dbUser:dbUserPassword@prf-project-qgfas.mongodb.net/test?retryWrites=true";
 
+//const transaction = new Transaction();
+
+dotenv.load({ path: '.env' });
+app.set('port', (process.env.PORT || 3000));
+
+app.use('/', express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(morgan('dev'));
+mongoose.connect(process.env.MONGODB_URI);
+const db = mongoose.connection;
+(<any>mongoose).Promise = global.Promise;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+
+  setRoutes(app);
+
+  app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+  });
+
+  app.listen(app.get('port'), () => {
+    console.log('Mean Stack listening on port ' + app.get('port'));
+  });
+
+});
+
+
+export { app };
+
+/*
 app.use('/', require('./routes'));
 app.use('/proba', require('./routes'));
 
 // PORT export PORT = 5000//
 const port = process.env.PORT || 3000;
 app.listen(port, () =>  console.log(`the server is listening on post ${port}...`));
+*/
+
+
 
 
 //const MongoClient = new MongoClient(uri, { useNewUrlParser: true });

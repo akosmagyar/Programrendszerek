@@ -3,9 +3,44 @@ const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose');
 //const userModel = mongoose.model('./user.model');
-var router = express.Router();
+
 const Joi = require('@hapi/joi');
 
+
+const BeerCtrl = require('./controllers/beer.contoller'); //classok
+const UserCtrl = require('./controllers/user.contoller');
+
+//modellek
+const User = require('./models/user.model');
+const Beer = require('./models/beer.model');
+
+export default function setRoutes(app) {
+    const router = express.Router();
+    
+    const beerCtrl = new BeerCtrl();
+    const userCtrl = new UserCtrl();
+
+    //Users
+    router.route('/login').post(userCtrl.login);
+    router.route('/users').get(userCtrl.getAll);
+    router.route('/users/count').get(userCtrl.count);
+    router.route('/user').post(userCtrl.insert);
+    router.route('/user/:id').get(userCtrl.get);
+    router.route('/user/:id').put(userCtrl.update);
+    router.route('/user/:id').delete(userCtrl.delete);
+
+    //Beers
+    router.route('/beers').get(beerCtrl.getAll);
+    router.route('/beers/count').get(beerCtrl.count);
+    router.route('/beer').post(beerCtrl.insert);
+    router.route('/beer/:id').get(beerCtrl.get);
+    router.route('/beer/:id').put(beerCtrl.update);
+    router.route('/beer/:id').delete(beerCtrl.delete);
+
+    //alkalmazzuk a route-okat a /api prefix-szel
+    app.use('/api', router);
+}
+/*
 
 router.use(express.json());
 
@@ -39,7 +74,7 @@ router.post('/api/courses', (req,res) => {
         res.status(400).send('Név megadása kötelező');
         return;
           } */
-
+/*
     const course = {
         id: courses.length + 1,
         name: req.body.name
