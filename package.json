@@ -2,10 +2,10 @@
   "name": "programrendszerek",
   "version": "1.0.0",
   "description": "**Beer house project**",
-  "main": "index.js",
+  "main": "./server/indexndex.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/akosmagyar/Programrendszerek#readme",
   "dependencies": {
+    "@hapi/joi": "^15.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",
@@ -25,7 +26,10 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
+    "jshint": "^2.10.2",
+    "mongodb": "^3.2.3",
     "mongoose": "^5.5.4",
+    "mongoose-transactions": "^1.1.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
   }
