@@ -1,22 +1,32 @@
-/*
-
-
 const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const userModel = mongoose.model('user');
+const userModel = mongoose.model('../models/user');
 var router = express.Router();
+
+
 
 router.post('/register', function(req, res) {
     if(!req.body.username || !req.body.password) {
         return res.status(404).send("username or password missing");
     } else {
-        var user = new userModel({username: req.body.username, 
-            password: req.body.password});
+        var user = new userModel({
+            _id: new mongoose.Types.ObjectId(),
+            username: req.body.username, 
+            password: req.body.password
+        });
+        /*
         user.save(function(error) {
             if(error) return res.status(500).send("db error");
             return res.status(200).send("registration success");
         })
+        */
+       user
+        .save()
+        .then(result => {
+           console.log(result);
+       })
+       .catch(err => console.log(err));
     }
 });
 
@@ -78,4 +88,3 @@ router.route('/book').get(function (req, res) {
 
 module.exports = router;
 
-*/

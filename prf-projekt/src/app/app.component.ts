@@ -14,5 +14,5 @@ export class AppComponent {
 
   onPostAdded(post){
     this.storedPosts.push(post);
-  }
+  };
 }
